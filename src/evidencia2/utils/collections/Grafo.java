@@ -79,6 +79,11 @@ public class Grafo {
         return buscarEnLista(nombre);
     }
 
+    /**
+     * Obtiene una lista de todos los vértices en el grafo
+     *
+     * @return Un ArrayList que contiene todos los vertices
+     */
     public ArrayList<Vertice> getVertices() {
         ArrayList<Vertice> listaVertices = new ArrayList<>();
         for (Vertice vertice : vertices.keySet()) {
