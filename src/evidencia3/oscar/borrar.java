@@ -1,4 +1,4 @@
 package evidencia3.oscar;
 
-public class sample {
+public class borrar {
 }
