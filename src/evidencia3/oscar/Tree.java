@@ -1,25 +1,27 @@
 package evidencia3.oscar;
 
+import java.io.Serializable;
+
 /**
  * Clase que representa un árbol binario utilizado en el juego de adivinar animales
  *
  * @author Oscar Herrera
  */
-public class Arbol {
+public class Tree implements Serializable {
     //Atributos
     private final String INITIAL_Q = "¿Tiene cuernos?";
-    private final String[] INITIAL_ANS = {"Vaca", "Perro"};
+    private final String[] INITIAL_ANS = {"Perro", "Vaca"};
 
-    private Nodo root;
-    private Nodo current;
-    private Nodo previous;
+    private Node root;
+    private Node current;
+    private Node previous;
 
     //Constructor
     /**
-     * Constructor de la clase Arbol
+     * Constructor de la clase Tree
      * Inicializa los nodos raíz, actual y anterior del árbol
      */
-    public Arbol() {
+    public Tree() {
         root = null;
         current = root;
         previous = null;
@@ -30,10 +32,10 @@ public class Arbol {
      * Inicializa el árbol con la pregunta y animales iniciales
      */
     public void initialize() {
-        root = new Nodo(INITIAL_Q);
+        root = new Node(INITIAL_Q);
         current = root;
-        this.root.left = new Nodo(INITIAL_ANS[0]);
-        this.root.right = new Nodo(INITIAL_ANS[1]);
+        this.root.left = new Node(INITIAL_ANS[0]);
+        this.root.right = new Node(INITIAL_ANS[1]);
     }
 
     /**
@@ -41,7 +43,7 @@ public class Arbol {
      *
      * @return Nodo actual en el árbol
      */
-    public Nodo getCurrentNode(){
+    public Node getCurrentNode(){
         return current;
     }
 
@@ -51,7 +53,7 @@ public class Arbol {
      * @param n Nodo del cual se obtendrán los datos
      * @return Datos almacenados en el nodo
      */
-    public String getData(Nodo n){
+    public String getData(Node n){
         return n.data;
     }
 
@@ -61,12 +63,12 @@ public class Arbol {
      * @param n Entero que indica si se avanza al hijo izquierdo (0) o derecho (1)
      */
     public void advanceCurrent(int n) {
-        if (n == 0) {
-            previous = current;
-            current = this.current.left;
-        } else {
+        if (n == 1) {
             previous = current;
             current = this.current.right;
+        } else {
+            previous = current;
+            current = this.current.left;
         }
     }
 
@@ -78,18 +80,18 @@ public class Arbol {
      * @param n Entero que indica si se agrega como hijo izquierdo (0) o derecho (1)
      */
     public void addNode(String question,String answer,int n){
-        Nodo node = new Nodo(question);
-        Nodo temp = current;
+        Node node = new Node(question);
+        Node temp = current;
 
         current = node;
         current.left = temp;
-        current.right = new Nodo(answer);
+        current.right = new Node(answer);
 
-        if(n == 0) {
-            previous.left = current;
+        if(n == 1) {
+            previous.right = current;
         }
         else {
-            previous.right = current;
+            previous.left = current;
         }
 
         reset();
@@ -102,8 +104,8 @@ public class Arbol {
      *
      * @return true si el nodo actual es una hoja, false de lo contrario
      */
-    public boolean isLeaf(){
-        return (current.left == null && current.right == null);
+    public boolean hasLeaf(){
+        return (current.left==null && current.right==null);
     }
 
     /**
