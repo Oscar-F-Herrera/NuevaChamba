@@ -1,11 +1,12 @@
 package evidencia2.utils.collections;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * Esta clase representa un vértice en una estructura de grafo
  */
-public class Vertice {
+public class Vertice extends ArrayList {
 
     //Atributos
     private final String nombre;
